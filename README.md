@@ -8,6 +8,11 @@ Personal Income Tax Calculator
 
 Monthly Income Tax Calculation
 
+## Supported Approved Train Law Effective January 1 2018
+
+Train Law Income Tax Rates in the Philippines 2018-2022
+
+Train Law Income Tax Rates in the Philippines 2023-onwards
 
 ### Help & Feedback
 
