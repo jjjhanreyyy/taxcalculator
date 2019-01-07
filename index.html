@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Income Tax Calculator | BIR Compliant</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="vendor/bootstrap413/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/semantic-ui/semantic.min.css">
+    <!-- script -->
+    <script src="vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="vendor/bootstrap413/js/bootstrap.min.js"></script>
+    <script src="vendor/semantic-ui/semantic.min.js"></script>
+    <style>
+        body {
+            background: #f1f1f1;
+        }
+        .main-container.container-fluid {
+            margin-top: 5em;
+        }
+        .wrapper .col-md-6 {
+            padding-top: 20px;
+            float: left;
+        }
+
+        .box.box-success {
+            border-top-color: #22a1f9;
+        }
+
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 3px solid #d2d6de;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .box-header.with-border {
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .box-header {
+            color: #444;
+            display: block;
+            padding: 10px;
+            position: relative;
+        }
+
+        .box-header>.fa,
+        .box-header>.glyphicon,
+        .box-header>.ion,
+        .box-header .box-title {
+            display: inline-block;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .box-body {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            padding: 10px;
+        }
+        .bg-blue {
+            background:#2185d0 !important;
+            color: white !important;
+        }
+        .bg-blue a {
+            color: white !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="ui fixed bg-blue menu">
+            <div class="ui container">
+                <a href="https://semantic-ui.com/examples/fixed.html#" class="header item"><i class="calculator icon"></i>BIR
+                    Tax Calculator</a>
+                <a href="https://semantic-ui.com/examples/fixed.html#" class="item"><i class="github icon"></i>Download
+                    Source Code</a>
+            </div>
+        </div>
+
+        <div class="main-container container-fluid">
+            <div class="col-md-12">
+                <h1 class="ui header">
+                    BIR Philippines Compliant Tax Calculator 2018-2023
+                    <div class="sub header">Open source Javascript BIR Income Tax Calculator, and SSS, PhilHealth,
+                        Pag-Ibig (2018) Contributions Table Calculator. Copyright © Brian Luna.</div>
+                </h1>
+            </div>
+            <div class="col-md-6">
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">TAX CALCULATOR</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="ui form">
+                            <div class="field required">
+                                <label for="">Monthly Gross Income</label>
+                                <input type="text" name="monthly_salary" id="monthly_salary" placeholder="Your Monthly Basic Salary"
+                                    required>
+                            </div>
+                            <div class="field required">
+                                <label for="">Tax Table</label>
+                                <select class="ui dropdown" name="version" id="version" required>
+                                    <option value="">Select Train Law Tax version</option>
+                                    <option value="2022">BIR Income Tax Table Jan 1, 2018-Dec 31 2022</option>
+                                    <option value="2023">BIR Income Tax Table 2023-onwards</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <button class="ui fluid button primary" type="submit" id="calculate">KALKULAHIN</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">MONTHLY PERSONAL INCOME TAX</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="ui form">
+                            <div class="field">
+                                <div class="ui basic fluid big label">Tax due
+                                    <div class="detail float-right" id="taxdue">00.00</div>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui basic fluid big label">Net pay after tax
+                                    <div class="detail float-right" id="netpayaftertax">00.00</div>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui green fluid big label">Net take home pay
+                                    <div class="detail float-right" id="nettakehomepay">00.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">MONTHLY CONTRIBUTION</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="ui form">
+                            <div class="field">
+                                <div class="ui basic fluid big label">SSS
+                                    <div class="detail float-right" id="sss">00.00</div>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui basic fluid big label">PhilHealth
+                                    <div class="detail float-right" id="philhealth">00.00</div>
+                                </div>
+
+                            </div>
+                            <div class="field">
+                                <div class="ui basic fluid big label">Pag-Ibig
+                                    <div class="detail float-right" id="pagibig">00.00</div>
+                                </div>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="field">
+                                <div class="ui green fluid big label">Total Contributions
+                                    <div class="detail float-right" id="total_contribution">00.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.ui.dropdown').dropdown();
+
+        var monthly_salary, status, dependents, sss_rates, philhealth_rates, pag_ibig_rates, tax_due, version;
+        monthly_salary = 720000;
+
+        $('#calculate').on('click', function () {
+            var mgi = $('#monthly_salary').val();
+            var version = $('#version').val();
+            income_tax(mgi, version);
+
+            sss = sss_contribution(mgi).ee;
+            philhealth = philhealth_contribution(mgi).ps;
+            pagibig = pagibig_contribution(mgi).ps;
+            netpayaftertax = mgi - tax_due;
+            netpayaftertax = parseFloat(netpayaftertax).toFixed(2);
+            nettakehomepay = netpayaftertax - total_contribution;
+            nettakehomepay = parseFloat(nettakehomepay).toFixed(2);
+
+            $('#taxdue').text(tax_due);
+            $('#netpayaftertax').text(netpayaftertax);
+            $('#nettakehomepay').text(nettakehomepay);
+
+            $('#sss').text(sss);
+            $('#philhealth').text(philhealth);
+            $('#pagibig').text(pagibig);
+            $('#total_contribution').text(total_contribution);
+        });
+
+        // 2017 payroll computation
+        // procedure
+        // #single or #married
+        // number of #dependents 1-4
+        // #monthly gross income
+        // #private company, #government, #ofw
+        // -> calculate
+
+        // PERSONAL INCOME TAX COMPUTATION
+        // #tax due ___________
+        // #net pay after tax _____________
+        // #total contribution ______________
+        // #net take home pay ______________
+
+        // MONTHLY CONTRIBUTION
+        // #sss ____________
+        // #philhealth ____________
+        // #pagibig _____________
+        // #total deductions
+
+        // OVERALL TRAIN IMPACT // 
+        // #tax savings __________
+        // #additional impact _________
+        // #total impact/month ___________
+        // #total impact/per year __________
+
+
+        // PAANO GAMITIN ANG TAX CALCULATOR
+        /*
+        1. king ikaw ay biyudo o biyuda, gamitin ang single option sa calculator
+
+        2. hindi kasama sa kalculasyon ang mga overtime, absences, leaves, de minimis benefits, at iba pa.
+
+        3. kung ikaw o ang asawa mo ay walang trabaho, itype ang 0 (zero).
+
+        4. kasama sa total contributions ang mandatory contributions para sa SSS/GSIS, philhealth at pag-ibig.
+
+        5. kasama sa kalkulasyon para sa lumang sistema ang exemption para sa mga dependents.
+
+        6. tuloy pa rin ang exemption ng mga minimum wage earner at ofw sa personal income tax.
+
+        # reference
+        # taxcalculator.dof.gov.ph
+        */
+
+        /*
+          CACULATE INCOME TAX AND WITHOLDING TAX
+          tax table versions
+          1. imcome tax tables to be implemented for the years 2018-2022
+          2. income tax tables to be applied from the year 2023-onwards
+
+          1 tax calculation rules
+            * checklist
+                1. basic salary
+                2. status
+                3. overtime pay
+                4. late deduction
+                5. sss contribution
+                6. phil-health contribution
+                7. pag-ibig contribution
+
+            * determine your taxable income
+                Taxable income = (monthly basic pay + overtime pay + holiday pay + night differential) -
+                                 (sss/phil-health/pag-ibig deductions - tardiness - absences)
+
+                Sample Computation
+                var monthly_salary, status, dependents, sss_rates(), philhealth_rates(), pag_ibig_rates()
+
+                monthly_salary = 15,000;
+
+                // OLD SYSTEM
+                status = 1; // [1 - single, 2 married]
+                dependents = 0; // [1-4]
+
+                sss_rates = 545.00; // from sss contribution table
+                philhealth_rates = 206.25; // from phil-health contribution table
+                pag_ibig_rates = 100; // from pag-ibig contribution
+
+                taxable_income = 15000 - (545.00 + 206.25 + 100)
+                               = 15000 - 851.25
+                               = P14,148.75
+            
+        */
+
+        /* 
+            PRE-COMPUTATION: SSS, PHILHEALTH, PAG-IBIG Contributions
+            sss_contribution(monthly_salary);
+            philhealth_contribution(monthly_salary);
+            pagibig_contribution(monthly_salary);
+        */
+        function sss_contribution(monthly_salary) {
+            sss_contribution_table = [{
+                    "rc_min": 1000,
+                    "rc_max": 1249.99,
+                    "msc": 1000,
+                    "er": 83.70,
+                    "ee": 36.30,
+                    "total": 120.00
+                },
+                {
+                    "rc_min": 1250,
+                    "rc_max": 1749.99,
+                    "msc": 1500,
+                    "er": 120.50,
+                    "ee": 54.50,
+                    "total": 175.00
+                },
+                {
+                    "rc_min": 1750,
+                    "rc_max": 2249.99,
+                    "msc": 2000,
+                    "er": 157.30,
+                    "ee": 72.70,
+                    "total": 230.00
+                },
+                {
+                    "rc_min": 2250,
+                    "rc_max": 2749.99,
+                    "msc": 2500,
+                    "er": 194.20,
+                    "ee": 90.80,
+                    "total": 285.00
+                },
+                {
+                    "rc_min": 2750,
+                    "rc_max": 3249.99,
+                    "msc": 3000,
+                    "er": 231.00,
+                    "ee": 109.00,
+                    "total": 340.00
+                },
+                {
+                    "rc_min": 3250,
+                    "rc_max": 3749.99,
+                    "msc": 3500,
+                    "er": 267.80,
+                    "ee": 127.20,
+                    "total": 395.00
+                },
+                {
+                    "rc_min": 3750,
+                    "rc_max": 4249.99,
+                    "msc": 4000,
+                    "er": 304.70,
+                    "ee": 145.30,
+                    "total": 450.00
+                },
+                {
+                    "rc_min": 4250,
+                    "rc_max": 4749.99,
+                    "msc": 4500,
+                    "er": 341.50,
+                    "ee": 163.50,
+                    "total": 505.00
+                },
+                {
+                    "rc_min": 4750,
+                    "rc_max": 5249.99,
+                    "msc": 5000,
+                    "er": 378.30,
+                    "ee": 181.70,
+                    "total": 560.00
+                },
+                {
+                    "rc_min": 5250,
+                    "rc_max": 5749.99,
+                    "msc": 5500,
+                    "er": 415.20,
+                    "ee": 199.80,
+                    "total": 615.00
+                },
+                {
+                    "rc_min": 5750,
+                    "rc_max": 6249.99,
+                    "msc": 6000,
+                    "er": 452.00,
+                    "ee": 218.00,
+                    "total": 670.00
+                },
+                {
+                    "rc_min": 6250,
+                    "rc_max": 6749.99,
+                    "msc": 6500,
+                    "er": 488.80,
+                    "ee": 236.20,
+                    "total": 725.00
+                },
+                {
+                    "rc_min": 6750,
+                    "rc_max": 7249.99,
+                    "msc": 7000,
+                    "er": 525.70,
+                    "ee": 454.30,
+                    "total": 780.00
+                },
+                {
+                    "rc_min": 7250,
+                    "rc_max": 7749.99,
+                    "msc": 7500,
+                    "er": 562.50,
+                    "ee": 272.50,
+                    "total": 835.00
+                },
+                {
+                    "rc_min": 7750,
+                    "rc_max": 8249.99,
+                    "msc": 8000,
+                    "er": 599.30,
+                    "ee": 290.70,
+                    "total": 890.00
+                },
+                {
+                    "rc_min": 8250,
+                    "rc_max": 8749.99,
+                    "msc": 8500,
+                    "er": 636.20,
+                    "ee": 308.80,
+                    "total": 945.00
+                },
+                {
+                    "rc_min": 8750,
+                    "rc_max": 9249.99,
+                    "msc": 9000,
+                    "er": 673.00,
+                    "ee": 327.00,
+                    "total": 1000.00
+                },
+                {
+                    "rc_min": 9250,
+                    "rc_max": 9749.99,
+                    "msc": 9500,
+                    "er": 709.80,
+                    "ee": 345.20,
+                    "total": 1055.00
+                },
+                {
+                    "rc_min": 9750,
+                    "rc_max": 10249.99,
+                    "msc": 10000,
+                    "er": 746.70,
+                    "ee": 363.30,
+                    "total": 1110.00
+                },
+                {
+                    "rc_min": 10250,
+                    "rc_max": 10749.99,
+                    "msc": 10500,
+                    "er": 783.50,
+                    "ee": 381.50,
+                    "total": 1165.00
+                },
+                {
+                    "rc_min": 10750,
+                    "rc_max": 11249.99,
+                    "msc": 11000,
+                    "er": 820.30,
+                    "ee": 399.70,
+                    "total": 1220.00
+                },
+                {
+                    "rc_min": 11250,
+                    "rc_max": 11749.99,
+                    "msc": 11500,
+                    "er": 857.20,
+                    "ee": 417.80,
+                    "total": 1275.00
+                },
+                {
+                    "rc_min": 11750,
+                    "rc_max": 12249.99,
+                    "msc": 12000,
+                    "er": 894.00,
+                    "ee": 436.00,
+                    "total": 1330.00
+                },
+                {
+                    "rc_min": 12250,
+                    "rc_max": 12749.99,
+                    "msc": 12500,
+                    "er": 930.80,
+                    "ee": 454.20,
+                    "total": 1385.00
+                },
+                {
+                    "rc_min": 12750,
+                    "rc_max": 13249.99,
+                    "msc": 13000,
+                    "er": 967.70,
+                    "ee": 472.30,
+                    "total": 1440.00
+                },
+                {
+                    "rc_min": 13250,
+                    "rc_max": 13749.99,
+                    "msc": 13500,
+                    "er": 1004.50,
+                    "ee": 490.50,
+                    "total": 1495.00
+                },
+                {
+                    "rc_min": 13750,
+                    "rc_max": 14249.99,
+                    "msc": 14000,
+                    "er": 1041.30,
+                    "ee": 508.70,
+                    "total": 1550.00
+                },
+                {
+                    "rc_min": 14250,
+                    "rc_max": 14749.99,
+                    "msc": 14500,
+                    "er": 1078.20,
+                    "ee": 526.80,
+                    "total": 1605.00
+                },
+                {
+                    "rc_min": 14750,
+                    "rc_max": 15249.99,
+                    "msc": 15000,
+                    "er": 1135,
+                    "ee": 545.00,
+                    "total": 1680.00
+                },
+                {
+                    "rc_min": 15250,
+                    "rc_max": 15749.99,
+                    "msc": 15500,
+                    "er": 1171.80,
+                    "ee": 563.20,
+                    "total": 1735.00
+                },
+                {
+                    "rc_min": 15750,
+                    "rc_max": "",
+                    "msc": 16000,
+                    "er": 1208.70,
+                    "ee": 581.30,
+                    "total": 1790.00
+                }
+            ];
+
+            for (var i = 0; i < sss_contribution_table.length; i++) {
+                if (monthly_salary <= sss_contribution_table[i].rc_max && monthly_salary >= sss_contribution_table[i].rc_min) {
+                    sss_rates = {
+                        "msc": sss_contribution_table[i].msc,
+                        "er": sss_contribution_table[i].er,
+                        "ee": sss_contribution_table[i].ee,
+                        "total": sss_contribution_table[i].total
+                    }
+                    return sss_rates;
+                }
+            }
+
+            if (monthly_salary >= 15750) {
+                sss_rates = {
+                    "msc": 16000,
+                    "er": 1208.70,
+                    "ee": 581.30,
+                    "total": 1790.00
+                }
+                return sss_rates;
+            }
+        }
+
+        function philhealth_contribution(monthly_salary) {
+            if (monthly_salary <= 10000) {
+                philhealth_rates = {
+                    "mp": 275.00,
+                    "ps": 137.50,
+                    "es": 137.50
+                }
+                return philhealth_rates;
+            }
+
+            if (monthly_salary <= 39999.99 && monthly_salary >= 10000.01) {
+                var cal_mp = 2.75 / 100 * monthly_salary;
+                var cal_ps = 2.75 / 100 * monthly_salary / 2;
+                var cal_es = 2.75 / 100 * monthly_salary / 2;
+                philhealth_rates = {
+                    "mp": cal_mp,
+                    "ps": cal_ps,
+                    "es": cal_es
+                }
+                return philhealth_rates;
+            }
+
+            if (monthly_salary >= 40000) {
+                philhealth_rates = {
+                    "mp": 1100,
+                    "ps": 550,
+                    "es": 550
+                }
+                return philhealth_rates;
+            }
+        }
+
+        function pagibig_contribution(monthly_salary) {
+            if (monthly_salary <= 1499) {
+                var cal_cons = 1 / 100 * monthly_salary;
+                pag_ibig_rates = {
+                    "ps": cal_cons,
+                    "es": cal_cons,
+                    "total": cal_cons * 2
+                }
+                return pag_ibig_rates;
+            }
+
+            if (monthly_salary <= 4999 && monthly_salary >= 1500) {
+                var cal_cons = 2 / 100 * monthly_salary;
+                pag_ibig_rates = {
+                    "ps": cal_cons,
+                    "es": cal_cons,
+                    "total": cal_cons * 2
+                }
+                return pag_ibig_rates;
+            }
+
+            if (monthly_salary >= 5000) {
+                pag_ibig_rates = {
+                    "ps": 100,
+                    "es": 100,
+                    "total": 100 * 2
+                }
+                return pag_ibig_rates;
+            }
+        }
+
+        // COMPUTE INCOME TAX - tax due
+        var taxable_income, total_contribution, m_taxable_income, netpayaftertax, a;
+
+        function income_tax(monthly_salary, version) {
+            // compute taxable income
+            taxable_income = monthly_salary - (sss_contribution(monthly_salary).ee + philhealth_contribution(
+                monthly_salary).ps + pagibig_contribution(monthly_salary).ps);
+            taxable_income = parseFloat(taxable_income).toFixed(2);
+
+            // total constributions
+            total_contribution = sss_contribution(monthly_salary).ee + philhealth_contribution(monthly_salary).ps +
+                pagibig_contribution(monthly_salary).ps;
+
+            // compute tax due or witholding tax
+            bir_witholding_tax_table2022 = [{
+                    "bracket": 1,
+                    "cl": 20833,
+                    "fixed": 0.00,
+                    "rate": "",
+                    "cl_max": ""
+                },
+                {
+                    "bracket": 2,
+                    "cl": 20834,
+                    "fixed": 0.00,
+                    "rate": 0.20,
+                    "cl_max": 33333
+                },
+                {
+                    "bracket": 3,
+                    "cl": 33333,
+                    "fixed": 2500.00,
+                    "rate": 0.25,
+                    "cl_max": 66667
+                },
+                {
+                    "bracket": 4,
+                    "cl": 66667,
+                    "fixed": 10833.33,
+                    "rate": 0.30,
+                    "cl_max": 166667
+                },
+                {
+                    "bracket": 5,
+                    "cl": 166667,
+                    "fixed": 40833.33,
+                    "rate": 0.32,
+                    "cl_max": 666667
+                },
+                {
+                    "bracket": 6,
+                    "cl": 666667,
+                    "fixed": 200833.33,
+                    "rate": 0.35,
+                    "cl_max": ""
+                }
+            ]
+            bir_witholding_tax_table2023 = [{
+                    "bracket": 1,
+                    "cl": 20833,
+                    "fixed": 0.00,
+                    "rate": "",
+                    "cl_max": ""
+                },
+                {
+                    "bracket": 2,
+                    "cl": 20834,
+                    "fixed": 0.00,
+                    "rate": 0.15,
+                    "cl_max": 33333
+                },
+                {
+                    "bracket": 3,
+                    "cl": 33333,
+                    "fixed": 1875.00,
+                    "rate": 0.20,
+                    "cl_max": 66667
+                },
+                {
+                    "bracket": 4,
+                    "cl": 66667,
+                    "fixed": 8541.66,
+                    "rate": 0.25,
+                    "cl_max": 166667
+                },
+                {
+                    "bracket": 5,
+                    "cl": 166667,
+                    "fixed": 33541.66,
+                    "rate": 0.30,
+                    "cl_max": 666667
+                },
+                {
+                    "bracket": 6,
+                    "cl": 666667,
+                    "fixed": 183541.66,
+                    "rate": 0.35,
+                    "cl_max": ""
+                }
+            ]
+
+            if (version == 2022) {
+                tax_table = bir_witholding_tax_table2022;
+            } else if (version == 2023) {
+                tax_table = bir_witholding_tax_table2023;
+            }
+
+            for (var i = 0; i < tax_table.length; i++) {
+                // <= 20833
+                if (taxable_income <= 20833) {
+                    // tax due = exemption for monthly taxable income less than 20833
+                    tax_due = 0.00;
+                }
+
+                // >= 20834 but < 666667
+                if (taxable_income >= 20834 && taxable_income < 666667) {
+                    if (taxable_income >= tax_table[i].cl && taxable_income < tax_table[i].cl_max) {
+                        // tax due = (taxable_income - compensation_level) * tax_rate + fixed_added_tax;
+                        tax_due = (taxable_income - tax_table[i].cl) * tax_table[i].rate + tax_table[i].fixed;
+                        tax_due = parseFloat(tax_due).toFixed(2);
+                    }
+                }
+
+                // >= 666667
+                if (taxable_income >= 666667) {
+                    // tax due = (taxable_income - 666667) * 0.35 + fixed_added_tax;
+                    tax_due = (taxable_income - tax_table[i].cl) * tax_table[i].rate + tax_table[i].fixed;
+                    tax_due = parseFloat(tax_due).toFixed(2);
+                }
+            }
+
+            // console.log("taxable income: " + taxable_income);
+            // console.log("monthly taxable income: " + taxable_income);
+            // console.log("tax due: " + tax_due); 
+        }
+
+        // income_tax(monthly_salary);
+
+        // SAMPLE DATA
+        // 4500
+        // 163.5, 137.5, 90 -> 391
+        // tax due: 0 <= exemption for monthly taxable income less than 20833
+
+        // 15000
+        // 545.0, 206.25, 100.00 -> 851.25
+        // tax due: 0 <= exemption for monthly taxable income less than 20833
+
+        // 22000
+        // 581.30, 302.50, 100 -> 983.8
+        // tax due: 37.57 // 36.44
+
+        // 25000
+        // 581.30, 343.75, 100 -> 1025.05
+        // tax due: 628.32 // 628.19
+
+        // 32000
+        // 581.30, 440, 100 -> 1121.3
+        // tax due: 2009.07
+
+        // 45000
+        // 581, 550, 100 -> 1231.3
+        // tax due: 5108.84 // 5108.92
+
+        // 70000
+        // 581.3, 550, 100 -> 1231.3
+        // tax due: 11463.94 // 11463.84
+
+        // 180000
+        // 581.3, 550, 100 -> 1231.3
+        // tax due: 47105.98 // 44705.88
+
+        // 720000
+        // 581.3, 550, 100 -> 1231.3
+        // tax due: 237444.05 // 219068.93
+        // net pay after tax: 720000-237444.05 = 482,555.95
+        // net take home pay: 482,555.95-1231.3 = 481,324.66 
+
+        // 1500000
+        // 581.3, 550, 100 -> 1231.3
+        // tax due: 533,194.05 // 492068.92
+        // net pay after tax: 1500000-533,194.05 = 966,805.95
+        // net take home pay: 966,805.96-1231.3 = 965,574.66
+    </script>
+</body>
+
+</html>
