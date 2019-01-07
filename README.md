@@ -1,5 +1,5 @@
 # Tax Calculator
-BIR Philippines Complaint Train Law Tax Calculator 2018-2023
+BIR Philippines Compliant Train Law Tax Calculator 2018-2023
 
 ## Features
 SSS, PhilHealth, Pag-Ibig Contribution Calculation using latest 2018 Contributions Table
@@ -24,7 +24,7 @@ Write your feedback and send at our developer email mr.brianluna@gmail.com
 
 
 ### License 
-The BIR Philippines Complaint Train Law Tax Calculator 2018-2023  is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The BIR Philippines Compliant Train Law Tax Calculator 2018-2023  is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 Version 1.0
 
