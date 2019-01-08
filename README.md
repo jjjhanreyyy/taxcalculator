@@ -28,6 +28,6 @@ The BIR Philippines Compliant Train Law Tax Calculator 2018-2023  is open-source
 
 Version 1.0
 
-Release Date: 02/07/2019
+Release Date: 01/07/2019
 
 Copyright (c) 2019 Brian Luna
