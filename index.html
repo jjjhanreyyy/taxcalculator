@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Train Income Tax Calculator | BIR Compliant</title>
-    <!-- styles -->
     <link rel="stylesheet" href="vendor/bootstrap413/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/semantic-ui/semantic.min.css">
-    <!-- script -->
     <script src="vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="vendor/bootstrap413/js/bootstrap.min.js"></script>
     <script src="vendor/semantic-ui/semantic.min.js"></script>
@@ -81,9 +79,9 @@
     <div class="wrapper">
         <div class="ui fixed bg-blue menu">
             <div class="ui container">
-                <a href="https://semantic-ui.com/examples/fixed.html#" class="header item"><i class="calculator icon"></i>BIR
+                <a href="#" class="header item"><i class="calculator icon"></i>BIR
                     Tax Calculator</a>
-                <a href="https://semantic-ui.com/examples/fixed.html#" class="item"><i class="github icon"></i>Download
+                <a href="https://github.com/brianluna/taxcalculator" class="item"><i class="github icon"></i>Download
                     Source Code</a>
             </div>
         </div>
@@ -220,51 +218,6 @@
             $('#total_contribution').text(total_contribution);
         });
 
-        // 2017 payroll computation
-        // procedure
-        // #single or #married
-        // number of #dependents 1-4
-        // #monthly gross income
-        // #private company, #government, #ofw
-        // -> calculate
-
-        // PERSONAL INCOME TAX COMPUTATION
-        // #tax due ___________
-        // #net pay after tax _____________
-        // #total contribution ______________
-        // #net take home pay ______________
-
-        // MONTHLY CONTRIBUTION
-        // #sss ____________
-        // #philhealth ____________
-        // #pagibig _____________
-        // #total deductions
-
-        // OVERALL TRAIN IMPACT // 
-        // #tax savings __________
-        // #additional impact _________
-        // #total impact/month ___________
-        // #total impact/per year __________
-
-
-        // PAANO GAMITIN ANG TAX CALCULATOR
-        /*
-        1. king ikaw ay biyudo o biyuda, gamitin ang single option sa calculator
-
-        2. hindi kasama sa kalculasyon ang mga overtime, absences, leaves, de minimis benefits, at iba pa.
-
-        3. kung ikaw o ang asawa mo ay walang trabaho, itype ang 0 (zero).
-
-        4. kasama sa total contributions ang mandatory contributions para sa SSS/GSIS, philhealth at pag-ibig.
-
-        5. kasama sa kalkulasyon para sa lumang sistema ang exemption para sa mga dependents.
-
-        6. tuloy pa rin ang exemption ng mga minimum wage earner at ofw sa personal income tax.
-
-        # reference
-        # taxcalculator.dof.gov.ph
-        */
-
         /*
           CACULATE INCOME TAX AND WITHOLDING TAX
           tax table versions
@@ -289,10 +242,6 @@
                 var monthly_salary, status, dependents, sss_rates(), philhealth_rates(), pag_ibig_rates()
 
                 monthly_salary = 15,000;
-
-                // OLD SYSTEM
-                status = 1; // [1 - single, 2 married]
-                dependents = 0; // [1-4]
 
                 sss_rates = 545.00; // from sss contribution table
                 philhealth_rates = 206.25; // from phil-health contribution table
@@ -647,7 +596,7 @@
             }
         }
 
-        // COMPUTE INCOME TAX - tax due
+        // COMPUTE INCOME TAX 
         var taxable_income, total_contribution, m_taxable_income, netpayaftertax, a;
 
         function income_tax(monthly_salary, version) {
@@ -777,58 +726,8 @@
                     tax_due = parseFloat(tax_due).toFixed(2);
                 }
             }
-
-            // console.log("taxable income: " + taxable_income);
-            // console.log("monthly taxable income: " + taxable_income);
-            // console.log("tax due: " + tax_due); 
         }
 
-        // income_tax(monthly_salary);
-
-        // SAMPLE DATA
-        // 4500
-        // 163.5, 137.5, 90 -> 391
-        // tax due: 0 <= exemption for monthly taxable income less than 20833
-
-        // 15000
-        // 545.0, 206.25, 100.00 -> 851.25
-        // tax due: 0 <= exemption for monthly taxable income less than 20833
-
-        // 22000
-        // 581.30, 302.50, 100 -> 983.8
-        // tax due: 37.57 // 36.44
-
-        // 25000
-        // 581.30, 343.75, 100 -> 1025.05
-        // tax due: 628.32 // 628.19
-
-        // 32000
-        // 581.30, 440, 100 -> 1121.3
-        // tax due: 2009.07
-
-        // 45000
-        // 581, 550, 100 -> 1231.3
-        // tax due: 5108.84 // 5108.92
-
-        // 70000
-        // 581.3, 550, 100 -> 1231.3
-        // tax due: 11463.94 // 11463.84
-
-        // 180000
-        // 581.3, 550, 100 -> 1231.3
-        // tax due: 47105.98 // 44705.88
-
-        // 720000
-        // 581.3, 550, 100 -> 1231.3
-        // tax due: 237444.05 // 219068.93
-        // net pay after tax: 720000-237444.05 = 482,555.95
-        // net take home pay: 482,555.95-1231.3 = 481,324.66 
-
-        // 1500000
-        // 581.3, 550, 100 -> 1231.3
-        // tax due: 533,194.05 // 492068.92
-        // net pay after tax: 1500000-533,194.05 = 966,805.95
-        // net take home pay: 966,805.96-1231.3 = 965,574.66
     </script>
 </body>
 
