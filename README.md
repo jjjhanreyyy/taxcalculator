@@ -1,6 +1,8 @@
 # Tax Calculator
 BIR Philippines Compliant Train Law Tax Calculator 2018-2023
-<img src="https://raw.githubusercontent.com/brianluna/taxcalculator/master/preview.png">
+
+![Preview](https://raw.githubusercontent.com/brianluna/taxcalculator/master/preview.png)
+
 ## Features
 SSS, PhilHealth, Pag-Ibig Contribution Calculation using latest 2018 Contributions Table
 
